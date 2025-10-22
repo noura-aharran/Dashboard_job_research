@@ -15,38 +15,17 @@ L’application affiche les données sous forme de **tableaux dynamiques** et d�
 - Offrir une interface web simple et responsive pour la consultation des offres.
 
 
-
-##  Structure du projet
-DASHBOARD/
-├── Big_data.json # Offres liées au Big Data
-├── Data_analysis.json # Offres d'analyse de données
-├── Data_science.json # Offres en Data Science
-├── Entreprises.json # Liste des entreprises et localisations
-├── IA.json # Offres en Intelligence Artificielle
-├── IT.json # Offres dans le domaine IT
-├── ml.json # Offres en Machine Learning
-├── JobPathDashboard.html # Tableau de bord principal (interface web)
-└── Page.py # Script Python pour le traitement ou l’export
-
-
-
-
 ## Technologies utilisées
 - **HTML5 / CSS3 / JavaScript** → Interface utilisateur et visualisation.  
 - **MapBox.js** → Carte interactive du Maroc (localisation des offres).  
 - **Python 3 (Page.py)** → Préparation ou fusion des fichiers JSON.  
 - **JSON** → Format de stockage des offres d’emploi.  
 
-
-
-
 ## Carte du Maroc – Visualisation
 La carte permet de :
 - Afficher les **villes avec leurs coordonnées GPS** issues de `Entreprises.json`.  
 - Ajouter des **marqueurs dynamiques** selon le domaine (Data, IT, IA…).  
 - Cliquer sur un marqueur pour afficher les détails : poste, entreprise, lien, salaire.  
-
-
 
 ## Données JSON – Exemple
 Exemple d’une offre dans `Data_science.json` :
