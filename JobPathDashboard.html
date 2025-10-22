@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Tableau de bord des Offres d'emploi</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+  <style>
+    /* ---------- BASE ---------- */
+    body { font-family: Arial, sans-serif; margin: 0; background: #f9f9f9; }
+    header { background: #0d48a1; color: white; padding: 1em; text-align: center; }
+    .container { padding: 2em; }
+
+    /* ---------- SELECTEUR SECTEUR ---------- */
+    .filters select { padding: 0.5em; }
+
+    /* ---------- MINI CARTES KPIs ---------- */
+    .cards { display: flex; gap: 1em; margin: 2em 0; flex-wrap: wrap; }
+    .card { flex: 1; background: white; padding: 1em; border-radius: 8px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); min-width: 200px; }
+
+    /* ---------- GRAPHIQUES ---------- */
+    .charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2em; }
+    .chart-container { background: white; padding: 1em; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    canvas { max-height: 400px; }
+
+    /* ---------- LISTING D'OFFRES (NOUVEAU) ---------- */
+    .job-filters { margin-top: 2em; display: flex; gap: 1em; flex-wrap: wrap; }
+    .job-filters input,
+    .job-filters select { padding: 0.5em; font-size: 14px; border-radius: 4px; border: 1px solid #ccc; }
+
+    .job-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5em; margin-top: 2em; }
+
+    .job-card { background: white; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); padding: 1em; transition: transform 0.2s ease; }
+    .job-card:hover { transform: translateY(-4px); }
+
+    .job-card .company-logo { width: 80px; height: 80px; object-fit: contain; margin-bottom: 10px; }
+    .job-card h3 { margin: 0; font-size: 18px; color: #2c3e50; }
+    .job-card .job-location,
+    .job-card .job-info { font-size: 14px; color: #555; margin: 4px 0; }
+    .job-card .job-type { display: inline-block; background: #dfe9f3; color: #2a506f; padding: 4px 8px; border-radius: 12px; font-size: 12px; margin-top: 6px; }
+    .job-card .job-link { display: inline-block; margin-top: 10px; text-decoration: none; color: #fff; background: #3498db; padding: 8px 14px; border-radius: 8px; }
+    .job-card .job-link:hover { background: #2980b9; }
+
+    /* ---- styles carte ---- */
+    #map { height: 600px; width: 100%; margin-top: 40px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
+    .mapboxgl-ctrl-top-left { margin-top: 10px; margin-left: 10px; display: flex; flex-direction: column; gap: 10px; }
+    #searchInput, #villeFilter { width: 250px; padding: 6px 10px; font-size: 14px; border-radius: 4px; border: 1px solid #ccc; }
+    .mapboxgl-popup.custom-popup .mapboxgl-popup-content { border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.2); padding: 10px 12px; font-size: 14px; font-family: Arial, sans-serif; }
+    .popup-content { display: flex; flex-direction: column; gap: 6px; }
+    .popup-actions { display: flex; gap: 10px; margin-top: 4px; }
+    .popup-actions a { text-decoration: none; font-size: 16px; }
+    .container {position: relative;z-index: 1; }
+
+  </style>
+</head>
+<body>
+<header><h1>Dashboard of internship offers</h1></header>
+<div class="container">
+  <!-- ---------- SELECTEUR PRINCIPAL PAR SECTEUR ---------- -->
+  <div class="filters">
+    <select id="sectorSelect">
+      <option value="IA.json">Artificial Intelligence</option>
+      <option value="Data_science.json">Data Science</option>
+      <option value="Data_analysis.json">Data Analysis</option>
+      <option value="Big_data.json">Big Data</option>
+      <option value="IT.json">IT</option>
+      <option value="ml.json">Machine Learning</option>
+    </select>
+  </div>
+
+  <!-- ---------- KPI CARDS ---------- -->
+  <div class="cards">
+    <div class="card" id="totalOffers">Offres: 0</div>
+    <div class="card" id="totalCompanies">Company: 0</div>
+    <div class="card" id="totalCities">Cities: 0</div>
+  </div>
+
+  <!-- ---------- GRAPHIQUES ---------- -->
+  <div class="charts">
+    <div class="chart-container"><canvas id="contractChart"></canvas></div>
+    <div class="chart-container"><canvas id="experienceChart"></canvas></div>
+    <div class="chart-container"><canvas id="sectorChart"></canvas></div>
+    <div class="chart-container"><canvas id="locationChart"></canvas></div>
+    <div class="chart-container"><canvas id="dateChart"></canvas></div>
+  </div>
+
+  <!-- ---------- FILTRES & CARTES D'OFFRES ---------- -->
+  <div class="job-filters">
+    <input type="text" id="jobSearchInput" placeholder="Search company or city">
+    <select id="locationFilter">
+      <option value="">Toutes les villes</option>
+    </select>
+  </div>
+
+  <div id="jobCardsContainer" class="job-cards"></div>
+
+  <!-- ---------- CARTE MAPBOX ---------- -->
+  <div id="map"></div>
+</div>
+
+<script>
+let data = [];
+const select = document.getElementById('sectorSelect');
+const totalOffers = document.getElementById('totalOffers');
+const totalCompanies = document.getElementById('totalCompanies');
+const totalCities = document.getElementById('totalCities');
+const charts = {};
+
+/* ---- éléments pour les cartes d'offres ---- */
+const jobCardsContainer = document.getElementById('jobCardsContainer');
+const jobSearchInput = document.getElementById('jobSearchInput');
+const locationFilter = document.getElementById('locationFilter');
+
+/* ---- écouteurs de filtres ---- */
+jobSearchInput.addEventListener('input', updateCards);
+locationFilter.addEventListener('change', updateCards);
+
+/* ---- changement de secteur ---- */
+select.addEventListener('change', () => {
+  fetch(select.value)
+    .then(res => res.json())
+    .then(json => {
+      data = json;
+      updateDashboard();
+    });
+});
+
+/* ---------- MISE À JOUR DU TABLEAU DE BORD ---------- */
+function updateDashboard() {
+  totalOffers.textContent = 'Offres: ' + data.length;
+  totalCompanies.textContent = 'Company: ' + new Set(data.map(d => d.companyName)).size;
+  totalCities.textContent = 'Cities: ' + new Set(data.map(d => d.location)).size;
+  updateCharts();
+  populateLocationFilter();
+  updateCards();
+}
+
+/* ---------- OUTILS D'AGRÉGATION ---------- */
+function countBy(field, limit = null) {
+  const result = {};
+  data.forEach(d => {
+    let key = d[field] || 'Inconnu';
+    if (field === 'location' && key.trim().toLowerCase() === 'morocco') return;
+    result[key] = (result[key] || 0) + 1;
+  });
+  let entries = Object.entries(result).sort((a,b) => b[1]-a[1]);
+  if (limit) entries = entries.slice(0, limit);
+  return Object.fromEntries(entries);
+}
+
+function groupByDate() {
+  const grouped = {};
+  data.forEach(d => {
+    const date = d.publishedAt?.slice(0, 10) || 'Inconnu';
+    grouped[date] = (grouped[date] || 0) + 1;
+  });
+  return grouped;
+}
+
+/* ---------- CHARTS ---------- */
+function drawChart(id, label, dataset, type = 'bar') {
+  const ctx = document.getElementById(id).getContext('2d');
+  if (charts[id]) charts[id].destroy();
+  charts[id] = new Chart(ctx, {
+    type,
+    data: {
+      labels: Object.keys(dataset),
+      datasets: [{
+        label: label,
+        data: Object.values(dataset),
+        backgroundColor: ['#0D47A1', '#1976D2', '#42A5F5', '#90CAF9', '#BBDEFB']
+      }]
+    },
+    options: {
+      responsive: true,
+      indexAxis: (id === 'sectorChart' || id === 'locationChart') ? 'y' : 'x',
+      plugins: { legend: { display: true } },
+      scales: {
+        x: { ticks: { maxRotation: 45, minRotation: 0, autoSkip: true } },
+        y: { beginAtZero: true }
+      }
+    }
+  });
+}
+
+function updateCharts() {
+  drawChart('contractChart', 'Type of Contract', countBy('contractType'), 'pie');
+  drawChart('experienceChart', 'Levels experience', countBy('experienceLevel'), 'bar');
+  drawChart('sectorChart', 'Sector', countBy('sector', 10));
+  drawChart('locationChart', 'Top Cities', countBy('location', 6));
+  drawChart('dateChart', 'Evolution of offers', groupByDate(), 'line');
+}
+
+/* ---------- POPULATION DU SELECT VILLE ---------- */
+function populateLocationFilter() {
+  const villes = [...new Set(data.map(d => d.location))].sort();
+  locationFilter.innerHTML = '<option value="">All cities</option>';
+  villes.forEach(ville => {
+    const opt = document.createElement('option');
+    opt.value = ville;
+    opt.textContent = ville;
+    locationFilter.appendChild(opt);
+  });
+}
+
+/* ---------- MISE À JOUR DES CARTES D'OFFRES ---------- */
+function updateCards() {
+  const query = jobSearchInput.value.trim().toLowerCase();
+  const ville = locationFilter.value.toLowerCase();
+  jobCardsContainer.innerHTML = '';
+
+  data.forEach(d => {
+    const companyMatch = d.companyName.toLowerCase().includes(query);
+    const locationMatch = d.location.toLowerCase().includes(query);
+    const villeMatch = !ville || d.location.toLowerCase() === ville;
+    if ((companyMatch || locationMatch) && villeMatch) {
+      const logo = d.logoUrl || 'https://via.placeholder.com/80x80?text=Logo';
+      jobCardsContainer.innerHTML += `
+        <div class="job-card">
+          <h3>${d.companyName}</h3>
+          <p class="job-location">📍 ${d.location}</p>
+          <p class="job-info">🕒 ${d.contractType} • 🎯 ${d.experienceLevel}</p>
+          <span class="job-type">#${d.workType || 'Other'}</span><br>
+          <a href="${d.jobUrl}" target="_blank" class="job-link">🔗 View Offer</a>
+        </div>`;
+    }
+  });
+}
+
+/* ---------- CHARGEMENT INITIAL ---------- */
+fetch('IA.json')
+  .then(res => res.json())
+  .then(json => { data = json; updateDashboard(); });
+
+mapboxgl.accessToken = 'pk.eyJ1Ijoibm91cmFhaGFycmFuIiwiYSI6ImNtYTVhNjFvYjBhNGEyanNmY3BjYWZqaHgifQ.2rjksx8r5RY136agzy5IRw';
+let map;
+let allMarkers = [];
+
+function initMap() {
+  map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v12',
+    center: [-7.5898, 33.5731],
+    zoom: 5
+  });
+
+  class FilterControl {
+    onAdd(map) {
+      this._map = map;
+      this._container = document.createElement('div');
+      this._container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
+
+      this._input = document.createElement('input');
+      this._input.type = 'text';
+      this._input.placeholder = 'Search';
+      this._input.id = 'searchInput';
+
+      this._select = document.createElement('select');
+      this._select.id = 'villeFilter';
+      this._select.innerHTML = `<option value="">All cities</option>`;
+
+      this._input.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          filterMarkers(this._input.value, this._select.value);
+        }
+      });
+
+      this._select.addEventListener('change', () => {
+        filterMarkers(this._input.value, this._select.value);
+      });
+
+      this._container.appendChild(this._input);
+      this._container.appendChild(this._select);
+      return this._container;
+    }
+
+    onRemove() {
+      this._container.parentNode.removeChild(this._container);
+      this._map = undefined;
+    }
+  }
+
+  map.addControl(new FilterControl(), 'top-left');
+  loadData("Entreprises.json");
+
+  map.addControl(new mapboxgl.NavigationControl());
+}
+
+async function loadData(file) {
+  try {
+    const res = await fetch(file);
+    const entreprises = await res.json();
+
+    updateMapMarkers(entreprises);
+    populateVilleDropdown(entreprises);
+    filterMarkers('', '');
+  } catch (error) {
+    console.error("Erreur chargement données :", error);
+  }
+}
+
+function populateVilleDropdown(data) {
+  const select = document.getElementById('villeFilter');
+  const villes = [...new Set(data.map(item => item.location))].sort();
+
+  villes.forEach(ville => {
+    const option = document.createElement('option');
+    option.value = ville;
+    option.textContent = ville;
+    select.appendChild(option);
+  });
+}
+
+function updateMapMarkers(data) {
+  // Supprimer anciens marqueurs
+  allMarkers.forEach(({ marker }) => marker.remove());
+  allMarkers = [];
+
+  data.forEach(item => {
+    if (
+      typeof item.latitude === 'number' &&
+      typeof item.longitude === 'number' &&
+      !isNaN(item.latitude) &&
+      !isNaN(item.longitude)
+    ) {
+      const popup = new mapboxgl.Popup({ offset: 25, className: 'custom-popup' }).setHTML(
+        `<div class='popup-content'>
+          <strong>${item.companyName}</strong>
+          <small>${item.location}</small>
+          <div class='popup-actions'>
+            <a href='${item.jobUrl}' target='_blank' title='Voir le site'>🌐</a>
+            <a href='https://www.google.com/maps/dir/?api=1&destination=${item.latitude},${item.longitude}' target='_blank' title='Itinéraire'>Direction</a>
+          </div>
+        </div>`
+      );
+
+      const marker = new mapboxgl.Marker({ color: '#d00' })
+        .setLngLat([item.longitude, item.latitude])
+        .setPopup(popup)
+        .addTo(map);
+
+      allMarkers.push({
+        marker,
+        companyName: item.companyName.toLowerCase(),
+        location: item.location.toLowerCase()
+      });
+    }
+  });
+  
+
+  // Centrer la carte sur les marqueurs
+  if (allMarkers.length > 0) {
+    const bounds = new mapboxgl.LngLatBounds();
+    allMarkers.forEach(({ marker }) => bounds.extend(marker.getLngLat()));
+    map.fitBounds(bounds, { padding: 50 });
+  }
+}
+
+function filterMarkers(query, villeFiltre) {
+  query = query.trim().toLowerCase();
+  villeFiltre = villeFiltre.toLowerCase();
+
+  allMarkers.forEach(({ marker }) => marker.remove());
+
+  const visibleMarkers = allMarkers.filter(({ companyName, location }) => {
+    const matchQuery = companyName.includes(query) || location.includes(query);
+    const matchVille = !villeFiltre || location === villeFiltre;
+    return matchQuery && matchVille;
+  });
+
+  visibleMarkers.forEach(({ marker }) => marker.addTo(map));
+
+  if (visibleMarkers.length > 0) {
+    const bounds = new mapboxgl.LngLatBounds();
+    visibleMarkers.forEach(({ marker }) => bounds.extend(marker.getLngLat()));
+    map.fitBounds(bounds, { padding: 50 });
+  }
+}
+
+window.onload = () => { initMap(); };
+
+</script>
+</body>
+</html>

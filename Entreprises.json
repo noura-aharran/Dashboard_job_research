@@ -1,0 +1,447 @@
+[
+  {
+    "companyName": "Atos Maroc",
+    "location": "Casablanca",
+    "jobUrl": "https://atos.net",
+    "latitude": 33.56085101760758,
+    "longitude": -7.644652806488826
+  },
+  {
+    "companyName": "Capgemini Maroc",
+    "location": "Casablanca",
+    "jobUrl": "https://www.capgemini.com",
+    "latitude": 33.58253146928044, 
+    "longitude": -7.636434962366233
+  },
+  {
+    "companyName": "DXC Technology Maroc",
+    "location": "Casablanca",
+    "jobUrl": "https://www.dxc.com",
+    "latitude": 33.52422829736304, 
+    "longitude":-7.638457974406682
+  },
+  {
+    "companyName": "CGI Maroc",
+    "location": "Casablanca",
+    "jobUrl": "https://www.cgi.com",
+    "latitude": 33.52937971970875, 
+    "longitude": -7.6390546590635156
+  },
+  {
+    "companyName": "Inetum Maroc",
+    "location": "Casablanca",
+    "jobUrl": "https://www.inetum.com",
+    "latitude": 33.531511927640494, 
+    "longitude": -7.6466119492706595
+  },
+  {
+    "companyName": "HPS Worldwide",
+    "location": "Casablanca",
+    "jobUrl": "https://www.hps-worldwide.com",
+    "latitude": 33.529563375663564, 
+    "longitude": -7.640529205092196
+  },
+  {
+    "companyName": "SQLI Maroc",
+    "location": "Rabat",
+    "jobUrl": "https://www.sqli.com",
+    "latitude": 33.98157447393078,
+    "longitude": -6.869799184764602
+  },
+  {
+    "companyName": "Sopra Banking Software Maroc",
+    "location": "Casablanca",
+    "jobUrl": "https://www.soprabanking.com",
+    "latitude": 33.609715361213524, 
+    "longitude": -7.624848520430832
+  },
+  {
+    "companyName": "IBM Maroc",
+    "location": "Casablanca",
+    "jobUrl": "https://www.ibm.com",
+    "latitude": 33.55886262759924, 
+    "longitude": -7.643385678104909
+  },
+  {
+    "companyName": "Dell Technologies Maroc",
+    "location": "Casablanca",
+    "jobUrl": "https://www.dell.com",
+    "latitude": 33.52473763123324, 
+    "longitude": -7.6423589204353215
+  },
+  {
+    "companyName": "Oracle Maroc",
+    "location": "Casablanca",
+    "jobUrl": "https://www.oracle.com",
+    "latitude": 33.52560182512014, 
+    "longitude": -7.641348589749509
+  },
+  {
+    "companyName": "SAP Maroc",
+    "location": "Casablanca",
+    "jobUrl": "https://www.sap.com",
+    "latitude": 33.58938928575398, 
+    "longitude": -7.632531765635795
+  },
+  {
+    "companyName": "Cisco Systems Maroc",
+    "location": "Casablanca",
+    "jobUrl": "https://www.cisco.com",
+    "latitude": 33.53856819689332, 
+    "longitude": -7.641064089748804
+  },
+  {
+    "companyName": "Microsoft Maroc",
+    "location": "Casablanca",
+    "jobUrl": "https://www.microsoft.com",
+    "latitude": 33.58666457597342, 
+    "longitude": -7.631472249267713
+  },
+  {
+    "companyName": "SII Services Maroc",
+    "location": "Casablanca",
+    "jobUrl": "https://www.sii-maroc.com",
+    "latitude": 33.60904151564292, 
+    "longitude": -7.623131332073623
+  },
+  {
+    "companyName": "Omnidata",
+    "location": "Casablanca",
+    "jobUrl": "https://omnidata.ma",
+    "latitude": 33.57858286638942, 
+    "longitude": -7.625592989746654
+  },
+  {
+    "companyName": "Cnexia",
+    "location": "Rabat",
+    "jobUrl": "https://www.cnexia.ma",
+    "latitude": 33.99212497747717, 
+    "longitude": -6.72109020506749
+  },
+  {
+    "companyName": "Adservio Maroc",
+    "location": "Casablanca",
+    "jobUrl": "https://www.adservio.fr",
+    "latitude": 33.598583993518915, 
+    "longitude": -7.638916820431363
+  },
+  {
+    "companyName": "AXA Services Maroc",
+    "location": "Rabat",
+    "jobUrl": "https://www.axa.ma",
+    "latitude": 34.00589629910298, 
+    "longitude": -6.850199743720643
+  },
+  {
+    "companyName": "Leyton Maroc",
+    "location": "Casablanca",
+    "jobUrl": "https://leyton.com",
+    "latitude": 33.52553907325, 
+    "longitude": -7.641402335778128
+  },
+  {
+    "companyName": "Indatacore",
+    "location": "Casablanca",
+    "jobUrl": "https://indatacore.com",
+    "latitude": 33.54280050643708, 
+    "longitude": -7.639546218584284
+  },
+  {
+    "companyName": "Matys",
+    "location": "Rabat",
+    "jobUrl": "https://matys.ma",
+    "latitude": 33.954554068772644, 
+    "longitude": -6.866765545548023
+  },
+  {
+    "companyName": "RightPlaceCall Morocco",
+    "location": "Casablanca",
+    "jobUrl": "https://www.rightplacecall.com",
+    "latitude": 33.584498561843816,
+    "longitude": -7.6246703357750185
+  },
+  {
+    "companyName": "Sobrus",
+    "location": "Rabat",
+    "jobUrl": "https://www.sobrus.com",
+    "latitude": 33.93990369405937, 
+    "longitude": -6.938416632055982
+  },
+  {
+    "companyName": "Tersea",
+    "location": "Casablanca",
+    "jobUrl": "https://tersea.com",
+    "latitude": 33.57959156386714, 
+    "longitude": -7.6247826474180345
+  },
+  {
+    "companyName": "Outsourcia",
+    "location": "Casablanca",
+    "jobUrl": "https://www.outsourcia.com",
+    "latitude": 33.58968962068707, 
+    "longitude": -7.642399712049799
+  },
+  {
+    "companyName": "Microdata",
+    "location": "Casablanca",
+    "jobUrl": "https://www.microdata.ma",
+    "latitude": 33.57728477356461, 
+    "longitude": -7.660261837666232
+  },
+  {
+    "companyName": "Disway",
+    "location": "Casablanca",
+    "jobUrl": "https://www.disway.ma",
+    "latitude": 33.53803845653456, 
+    "longitude": -7.641314332077375
+  },
+  {
+    "companyName": "Obytes",
+    "location": "Rabat",
+    "jobUrl": "https://obytes.com",
+    "latitude": 34.254367274249226, 
+    "longitude": -6.58922285108203
+  },
+  {
+    "companyName": "Dataprotect",
+    "location": "Casablanca",
+    "jobUrl": "https://www.dataprotect.ma",
+    "latitude": 33.56445978891504, 
+    "longitude": -7.660504064083974
+  },
+  {
+    "companyName": "LMPS Group",
+    "location": "Casablanca",
+    "jobUrl": "https://www.lmps-ma.com",
+    "latitude": 33.523673722273834, 
+    "longitude": -7.63885006276395
+  },
+  {
+    "companyName": "M2M Group",
+    "location": "Casablanca",
+    "jobUrl": "https://www.m2mgroup.com",
+    "latitude": 33.54029502208974, 
+    "longitude": -7.6455902684409685
+  },
+  {
+    "companyName": "Intelcia IT Solutions",
+    "location": "Casablanca",
+    "jobUrl": "https://www.intelcia.com",
+    "latitude": 33.53104455901229, 
+    "longitude": -7.6362857781063935
+  },
+  {
+    "companyName": "Maroc Telecom",
+    "location": "Rabat",
+    "jobUrl": "https://www.iam.ma",
+    "latitude": 33.95867934159299, 
+    "longitude": -6.871023805069273
+  },
+  {
+    "companyName": "Orange Maroc",
+    "location": "Casablanca",
+    "jobUrl": "https://www.orange.ma",
+    "latitude": 33.606212186247994, 
+    "longitude": -7.552911441594589
+  },
+  {
+    "companyName": "Inwi",
+    "location": "Casablanca",
+    "jobUrl": "https://www.inwi.ma",
+    "latitude": 33.542217297287884, 
+    "longitude": -7.640239030748104
+  },
+  {
+    "companyName": "Casanet",
+    "location": "Casablanca",
+    "jobUrl": "https://www.casanet.ma",
+    "latitude": 33.55601629211412, 
+    "longitude": -7.64609656989135
+  },
+  {
+    "companyName": "Terabyte Software Solutions",
+    "location": "Kenitra",
+    "jobUrl": "https://terabyte-software.com",
+    "latitude": 34.26043771639791, 
+    "longitude": -6.581355705052974
+  },
+  {
+    "companyName": "WeProcess",
+    "location": "Fes",
+    "jobUrl": "https://we-process.com",
+    "latitude": 34.032681097049725, 
+    "longitude": -5.007650832050998
+  },
+  {
+    "companyName": "xHub",
+    "location": "Casablanca",
+    "jobUrl": "https://x-hub.io",
+    "latitude": 33.54323375878395, 
+    "longitude": -7.640365449270017
+  },
+  {
+    "companyName": "Solve IT Technologies",
+    "location": "Fes",
+    "jobUrl": "https://solve-it-technologies.com",
+    "latitude": 34.03883148035567, 
+    "longitude": -5.011827406915035
+  },
+  {
+    "companyName": "Business Intelligence Agency",
+    "location": "Rabat",
+    "jobUrl": "https://businessintelligenceagency.ma",
+    "latitude": 33.909943578234035, 
+    "longitude": -6.910727562743325
+  },
+  {
+    "companyName": "Tingis Web",
+    "location": "Tangier",
+    "jobUrl": "https://www.tingisweb.com",
+    "latitude": 35.7734105040391, 
+    "longitude": -5.801314333805267
+  },
+  {
+    "companyName": "NoOps",
+    "location": "Casablanca",
+    "jobUrl": "https://noops.ma",
+    "latitude": 33.54320872754693,
+    "longitude": -7.640185762762866
+  },
+  {
+    "companyName": "Logigroup",
+    "location": "Casablanca",
+    "jobUrl": "https://www.logigroup.ma",
+    "latitude": 33.5880274364505, 
+    "longitude": -7.639314547417603
+  },
+  {
+    "companyName": "Eureka Creation",
+    "location": "Marrakesh",
+    "jobUrl": "https://www.eureka-creation.ma",
+    "latitude": 31.637936991969532, 
+    "longitude": -8.010287147518108
+  },
+  {
+    "companyName": "Megacom",
+    "location": "Marrakesh",
+    "jobUrl": "https://megacom.ma",
+    "latitude": 31.635801313948434, 
+    "longitude": -8.015211566561259
+  },
+  {
+    "companyName": "Verbindungszentrum",
+    "location": "Safi",
+    "jobUrl": "https://www.verbindungszentrum.com",
+    "latitude": 31.699514589117783, 
+    "longitude": -8.0582717921011
+  },
+
+  {
+    "companyName": "Nostrum Media",
+    "location": "Tangier",
+    "jobUrl": "https://nostrum.ma",
+    "latitude": 35.77612186046201, 
+    "longitude": -5.802942362640833
+  },
+
+  {
+    "companyName": "VIIX Digital",
+    "location": "Agadir",
+    "jobUrl": "https://viixdigital.com",
+    "latitude": 30.41791087676989, 
+    "longitude": -9.577019549428007
+  },
+  {
+    "companyName": "MarocRank",
+    "location": "Fes",
+    "jobUrl": "https://www.marocrank.com",
+    "latitude": 34.01952475789842,
+    "longitude":  -4.978739706916087
+  },
+  {
+    "companyName": "QuickTech",
+    "location": "Marrakesh",
+    "jobUrl": "https://www.quicktech.ma",
+    "latitude": 31.771380316722936, 
+    "longitude": -8.082472106228055
+  },
+  {
+    "companyName": "Gudiz",
+    "location": "Marrakesh",
+    "jobUrl": "https://gudizcommunication.com",
+    "latitude": 31.638946392881934, 
+    "longitude": -8.010236847518044
+  },
+  {
+    "companyName": "Edgy Brain",
+    "location": "Kenitra",
+    "jobUrl": "https://www.edgybrain.com",
+    "latitude": 34.26058371787872, 
+    "longitude": -6.580477635738791
+  },
+   {
+    "companyName": "AUGFIELD TECHNOLOGIES",
+    "location": "Tanger",
+    "jobUrl": "https://www.augfield.com",
+    "latitude": 35.76760007912079, 
+    "longitude": -5.80687304729840
+  },
+  {
+    "companyName": "Adinsys Info Sarl",
+    "location": "Tanger",
+    "jobUrl": "https://www.adinsys.com",
+    "latitude": 35.77094989665132, 
+    "longitude": -5.812875733805392
+  },
+  {
+    "companyName": "Apen",
+    "location": "Tanger",
+    "jobUrl": "https://www.apen.ma",
+    "latitude": 35.774498473182916, 
+    "longitude": -5.798924560790866
+  },
+  {
+    "companyName": "Ayadisoft",
+    "location": "Tanger",
+    "jobUrl": "https://www.ayadisoft.com",
+    "latitude": 35.782364250513155, 
+    "longitude": -5.830253476133317
+  },
+
+  {
+    "companyName": "Fig Systems",
+    "location": "Tanger",
+    "jobUrl": "http://www.figsystems.ma",
+    "latitude": 35.779185870035846, 
+    "longitude": -5.810554564490671
+  },
+  {
+    "companyName": "3V Solutions",
+    "location": "Mohammedia",
+    "jobUrl": "https://www.3vsolutions.com",
+    "latitude": 33.69569236860734, 
+    "longitude": -7.390574074397582
+  },
+  {
+    "companyName": "Eureka Creation",
+    "location": "Marrakech",
+    "jobUrl": "https://www.eureka-creation.ma",
+    "latitude": 31.63799179783831, 
+    "longitude": -8.01034079169671
+  },
+  {
+    "companyName": "Megacom",
+    "location": "Marrakech",
+    "jobUrl": "https://megacom.ma",
+    "latitude": 31.635719103196795, 
+    "longitude": -8.015039905189733
+  },
+
+  {
+    "companyName": "Sofrecom",
+    "location": "Marrakech",
+    "jobUrl": "https://www.sofrecom.com",
+    "latitude": 34.013126410593344, 
+    "longitude": -6.729144298145277
+  }
+]
